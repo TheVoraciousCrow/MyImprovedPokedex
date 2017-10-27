@@ -1,11 +1,14 @@
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Pokedex {
     private int numPokemon;
     private int numPokemonInDex = 0;
     private String[] pokeList;
     private Pokemon[] pokeDex1;
-    private HashMap<String, Integer> pokeMap = new HashMap<>();
+    private Map<String, Integer> pokeMap = new LinkedHashMap<>();
 
     public Pokedex(int numMonsters) {
         numPokemon = numMonsters;
@@ -18,7 +21,7 @@ public class Pokedex {
     }
 
     public String[] listPokemon() {
-        return pokeList;
+        return pokeMap.keySet().toArray(new String[pokeMap.size()]);
     }
 
     public boolean addPokemon(String species) {
@@ -44,7 +47,9 @@ public class Pokedex {
             return statList;
     }
 
-    public void sortPokedex(){}
+    public void sortPokedex(){
+        pokeMap = new TreeMap<>(pokeMap);
+    }
 
     public boolean evolvePokemon(String species){
         Integer speciesIndex = getPokemonIndex(species);

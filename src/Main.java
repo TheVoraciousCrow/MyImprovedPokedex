@@ -11,8 +11,9 @@ public class Main {
         System.out.println("Welcome to your new PokeDex!");
         while (displayNumEntry){
             try{
-                System.out.println("How many pokemon are in your region: ");
+                System.out.print("How many pokemon are in your region: ");
                 numPokemon = scan.nextInt();
+                System.out.println("");
                 if (numPokemon > 0)
                     displayNumEntry = false;
                 else
@@ -24,48 +25,57 @@ public class Main {
                 scan.nextLine();
             }
         }
-        System.out.println("Your new Pokedex can hold "+  numPokemon +  " Pokemon. Let's start using it!\n");
+        System.out.println("\nYour new Pokedex can hold "+  numPokemon +  " Pokemon. Let's start using it!");
         Pokedex myPokedex = new Pokedex(numPokemon);
 
         while (displayOptions){
-            System.out.println("1. List Pokemon\n2. Add Pokemon\n3. Check Pokemon Stats\n" +
-                    "4. Evolve Pokemon\n5. Sort Pokemon\n6. Exit\nWhat would you like to do?\n");
+            System.out.print("\n1. List Pokemon\n2. Add Pokemon\n3. Check a Pokemon's Stats\n" +
+                    "4. Evolve Pokemon\n5. Sort Pokemon\n6. Exit\nWhat would you like to do? ");
             try{
                 int userResponse = scan.nextInt();
+                System.out.println("");
                 switch(userResponse){
                     case 1:
                         //list pokemon
-                        //myPokedex.listPokemon();
+                        int counter = 1;
+                        for (String pokemon : myPokedex.listPokemon()){
+                            System.out.println(counter + ". " + pokemon);
+                            counter++;
+                        }
                         break;
                     case 2:
                         //add a pokemon
-                        System.out.println("Please enter the Pokemon's Species: ");
+                        System.out.print("Please enter the Pokemon's Species: ");
                         myPokedex.addPokemon(scan.next());
+                        System.out.println("");
                         break;
                     case 3:
                         // check Pokemon stats
                         species = getSpeciesOfInterest();
-                        int[] statList = myPokedex.checkStats(species);
-                        System.out.println("The stats for " + species + " are:");
-                        System.out.println("Attack: " + statList[0] + "\nDefense: " + statList[1] +
-                                            "\nSpeed: " + statList[2]);
+                        if (myPokedex.getPokemonIndex(species) != -1) {
+                            int[] statList = myPokedex.checkStats(species);
+                            System.out.println("The stats for " + species + " are:");
+                            System.out.println("Attack: " + statList[0] + "\nDefense: " + statList[1] +
+                                    "\nSpeed: " + statList[2]);
+                        }
+                        else
+                            System.out.println("Missing");
                         break;
                     case 4:
                         //evolve a pokemon
                         species = getSpeciesOfInterest();
                         boolean speciesHasEvolved = false;
-                        while(! speciesHasEvolved) {
                             if (myPokedex.getPokemonIndex(species) != -1) {
                                 speciesHasEvolved = myPokedex.evolvePokemon(species); //returns true after evolution
-                                System.out.println("" + species + " has evolved!");
+                                if (speciesHasEvolved)
+                                    System.out.println("" + species + " has evolved!");
                             }
                             else
-                            System.out.print("Stats unknown; that species has not yet been discovered." +
-                                    "\n Try another");
-                        }
+                            System.out.print("Missing");
                         break;
                     case 5:
                         //Sort Pokemon
+                        myPokedex.sortPokedex();
                         break;
                     case 6:
                         //exit program
@@ -82,8 +92,9 @@ public class Main {
 
     }
     public static String getSpeciesOfInterest(){
-        System.out.println("Please enter the species of interet: ");
+        System.out.print("Please enter the species of interest: ");
         Scanner scan = new Scanner(System.in);
+        System.out.println("");
         return scan.nextLine();
     }
 }
