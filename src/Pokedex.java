@@ -1,4 +1,3 @@
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -67,5 +66,8 @@ public class Pokedex {
             return pokeMap.get(species);
         }
         else return -1;
+    }
+    public int getTotalPokemonAdded(){
+        return numPokemonInDex;
     }
 }

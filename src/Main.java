@@ -3,12 +3,15 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
+
+
         boolean displayOptions = true;
         boolean displayNumEntry = true;
         int numPokemon = 1;
-        String species;
+        int pokemonAdded = 0;
         Scanner scan = new Scanner(System.in);
         System.out.println("Welcome to your new PokeDex!");
+
         while (displayNumEntry){
             try{
                 System.out.print("How many pokemon are in your region: ");
@@ -43,42 +46,19 @@ public class Main {
                             counter++;
                         }
                         break;
-                    case 2:
-                        //add a pokemon
-                        System.out.print("Please enter the Pokemon's Species: ");
-                        myPokedex.addPokemon(scan.next());
-                        System.out.println("");
+                    case 2: //adds new pokemon to the pokedex
+                        addingPokemon(myPokedex, scan, pokemonAdded, numPokemon);
                         break;
-                    case 3:
-                        // check Pokemon stats
-                        species = getSpeciesOfInterest();
-                        if (myPokedex.getPokemonIndex(species) != -1) {
-                            int[] statList = myPokedex.checkStats(species);
-                            System.out.println("The stats for " + species + " are:");
-                            System.out.println("Attack: " + statList[0] + "\nDefense: " + statList[1] +
-                                    "\nSpeed: " + statList[2]);
-                        }
-                        else
-                            System.out.println("Missing");
+                    case 3: // check Pokemon stats
+                        statCheck(myPokedex);
                         break;
-                    case 4:
-                        //evolve a pokemon
-                        species = getSpeciesOfInterest();
-                        boolean speciesHasEvolved = false;
-                            if (myPokedex.getPokemonIndex(species) != -1) {
-                                speciesHasEvolved = myPokedex.evolvePokemon(species); //returns true after evolution
-                                if (speciesHasEvolved)
-                                    System.out.println("" + species + " has evolved!");
-                            }
-                            else
-                            System.out.print("Missing");
+                    case 4: //evolve a pokemon
+                       evolvingPokemon(myPokedex);
                         break;
-                    case 5:
-                        //Sort Pokemon
+                    case 5: //Sort Pokemon
                         myPokedex.sortPokedex();
                         break;
-                    case 6:
-                        //exit program
+                    case 6: //exit program
                         displayOptions = false;
                         return;
                     default:
@@ -91,10 +71,52 @@ public class Main {
         }
 
     }
+    public static void addingPokemon(Pokedex myPokedex, Scanner scan, int pokemonAdded, int numPokemon){
+        //add a pokemon
+        if (myPokedex.getTotalPokemonAdded() < numPokemon){
+            System.out.print("Please enter the Pokemon's Species: ");
+            myPokedex.addPokemon(scan.next());
+            System.out.println("");
+        }
+        else {
+            System.out.print("There are only " + numPokemon + " pokemon in your region, you cannot add more!");
+            System.out.println("");
+        }
+    }
+
+    public static void statCheck(Pokedex myPokedex){ //gets the stats from pokedex and prints them
+
+
+        String species = getSpeciesOfInterest();
+        if (myPokedex.getPokemonIndex(species) != -1) {
+            int[] statList = myPokedex.checkStats(species);
+            System.out.println("The stats for " + species + " are:");
+            System.out.println("Attack: " + statList[0] + "\nDefense: " + statList[1] +
+                    "\nSpeed: " + statList[2]);
+        }
+        else
+            System.out.println("Missing");
+    }
+    public static void evolvingPokemon(Pokedex myPokedex){
+
+
+        String species = getSpeciesOfInterest();
+        boolean speciesHasEvolved;
+        if (myPokedex.getPokemonIndex(species) != -1) {
+            speciesHasEvolved = myPokedex.evolvePokemon(species); //returns true after evolution
+            if (speciesHasEvolved)
+                System.out.println("" + species + " has evolved!");
+        }
+        else
+            System.out.print("Missing");
+    }
     public static String getSpeciesOfInterest(){
+
+
         System.out.print("Please enter the species of interest: ");
         Scanner scan = new Scanner(System.in);
-        System.out.println("");
-        return scan.nextLine();
+        String response = scan.nextLine();
+        return response;
+
     }
 }
