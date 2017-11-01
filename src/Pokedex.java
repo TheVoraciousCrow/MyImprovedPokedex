@@ -8,6 +8,7 @@ public class Pokedex {
     private String[] pokeList;
     private Pokemon[] pokeDex1;
     private Map<String, Integer> pokeMap = new LinkedHashMap<>();
+    private Map<String, Integer> lowerCasePokeMap = new LinkedHashMap<>();
 
     public Pokedex(int numMonsters) {
         numPokemon = numMonsters;
@@ -16,23 +17,16 @@ public class Pokedex {
 
     }
 
-    public static void main(String[] args) {
-    }
-
     public String[] listPokemon() {
         return pokeMap.keySet().toArray(new String[pokeMap.size()]);
     }
 
     public boolean addPokemon(String species) {
         Pokemon newMonster = new Pokemon(species);
-        if(pokeMap.get(species) != null) {
-            return false;
-        }
-        else {
             pokeMap.put(species, numPokemonInDex); //adds name of pokemon and stores index in the pokeDex array
+            lowerCasePokeMap.put(species.toLowerCase(), numPokemonInDex);
             pokeDex1[numPokemonInDex] = newMonster;
             numPokemonInDex ++;
-        }
         return false;
     }
 
@@ -70,4 +64,14 @@ public class Pokedex {
     public int getTotalPokemonAdded(){
         return numPokemonInDex;
     }
-}
+    public String addPokemonValidation(String species){
+        if (lowerCasePokeMap.get(species.toLowerCase()) != null)
+            return "Duplicate";
+        else if (getTotalPokemonAdded() == numPokemon)
+            return "Max";
+        else
+            return "Can add pokemon";
+
+        }
+    }
+
