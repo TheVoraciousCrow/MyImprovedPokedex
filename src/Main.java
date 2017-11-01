@@ -7,7 +7,6 @@ public class Main {
         boolean displayOptions = true;
         boolean displayNumEntry = true;
         int numPokemon = 1;
-        int pokemonAdded = 0;
         Scanner scan = new Scanner(System.in);
         System.out.println("Welcome to your new PokeDex!");
 
@@ -24,7 +23,6 @@ public class Main {
                     throw new Exception("Number Is less than or equal to zero.");
             }
             catch (Exception e){
-                System.out.println(e.getMessage());
                 System.out.println("Enter a number greater than zero!\n");
                 scan.nextLine();
             }
@@ -48,7 +46,7 @@ public class Main {
                         }
                         break;
                     case 2: //adds new pokemon to the pokedex
-                        addingPokemon(myPokedex, scan);
+                        myPokedex.addPokemon(getSpeciesOfInterest());
                         break;
                     case 3: // check Pokemon stats
                         statCheck(myPokedex);
@@ -74,27 +72,13 @@ public class Main {
         }
 
     }
-    //this method will add a pokemon, or print the reason why a pokemon cannot be added
-    public static void addingPokemon(Pokedex myPokedex, Scanner scan){
-        //add a pokemon
-        System.out.println("");
-        System.out.print("Please enter the Pokemon's Species: ");
-        String species = scan.next();
-        String addingValidation = myPokedex.addPokemonValidation(species); //will tell if pokemon was added or why it wasn't
-
-        if (addingValidation.equals("Duplicate"))
-            System.out.println("Duplicate");
-        else if(addingValidation.equals("Max"))
-            System.out.println("Max");
-        else if(addingValidation.equals("Can add pokemon"))
-            myPokedex.addPokemon(species);
-    }
 
     public static void statCheck(Pokedex myPokedex){ //gets the stats from pokedex and prints them
         String species = getSpeciesOfInterest();
 
         if (myPokedex.getPokemonIndex(species) != -1) {
             int[] statList = myPokedex.checkStats(species);
+            System.out.println("");
             System.out.println("The stats for " + species + " are:");
             System.out.println("Attack: " + statList[0] + "\nDefense: " + statList[1] +
                     "\nSpeed: " + statList[2]);
