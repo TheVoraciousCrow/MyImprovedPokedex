@@ -17,13 +17,13 @@ public class Main {
                 numPokemon = scan.nextInt();
                 System.out.println("");
 
-                if (numPokemon > 0)
+                if (numPokemon >= 0)
                     displayNumEntry = false;
                 else
-                    throw new Exception("Number Is less than or equal to zero.");
+                    throw new Exception("Number Is less than zero.");
             }
             catch (Exception e){
-                System.out.println("Enter a number greater than zero!\n");
+                System.out.println("Number Is less than zero.\n");
                 scan.nextLine();
             }
         }

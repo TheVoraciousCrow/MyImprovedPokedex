@@ -13,26 +13,26 @@ public class Pokemon {
     public int getAttack(){
         return attack;
     }
-    public void setAttack(int atk){
-        attack = atk;
+    public void setAttack(int newAttack){
+        attack = newAttack;
     }
     public int getDefense(){
         return defense;
     }
-    public void setDefense(int def){
-        defense = def;
+    public void setDefense(int newDefense){
+        defense = newDefense;
     }
     public int getSpeed(){
         return speed;
     }
-    public void setSpeed(int spd){
-        speed = spd;
+    public void setSpeed(int newSpeed){
+        speed = newSpeed;
     }
     public String getSpecies(){
         return species;
     }
-    public void setSpecies(String spec){
-        species = spec;
+    public void setSpecies(String newSpecies){
+        species = newSpecies;
     }
     public void evolve(){
         setSpeed(speed * 2);
