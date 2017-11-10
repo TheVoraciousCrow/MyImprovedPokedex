@@ -1,8 +1,13 @@
+package pokemonPack;
 public class Pokemon {
     private String species; //name
     private int attack;
     private int defense;
     private int speed;
+    private int height;
+    private int weight;
+    private String description;
+
 
     public Pokemon(String speciesName)
     {
@@ -49,5 +54,29 @@ public class Pokemon {
         setAttack(attack * 3);
         setDefense(defense * 5);
 
+    }
+    public int getHeight()
+    {
+        return height;
+    }
+    public void setHeight(int height)
+    {
+        this.height = height;
+    }
+    public int getWeight()
+    {
+        return weight;
+    }
+    public void setWeight(int weight)
+    {
+        this.weight = weight;
+    }
+    public String getDescription()
+    {
+        return description;
+    }
+    public void setDescription(String description)
+    {
+        this.description = description;
     }
 }
